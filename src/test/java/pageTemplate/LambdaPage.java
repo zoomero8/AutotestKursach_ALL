@@ -1,5 +1,4 @@
 package pageTemplate;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,36 +7,35 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LambdaPage {
 
-
     public WebDriver driver;
     public LambdaPage(WebDriver driver){
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
+    @FindBy(xpath = "/html/body/div[1]/div/h2")
+    private WebElement headText;
+
     @FindBy(xpath="/html/body/div[1]/div/div/span")
-    private WebElement labelRemaining;
+    private WebElement numCheckboxes;
 
     @FindBy(xpath = "/html/body/div[1]/div/div/ul")
     private WebElement listItem;
 
     @FindBy(xpath = "//*[@id=\"sampletodotext\"]")
-    private WebElement inputNameElement;
+    private WebElement nameInputField;
 
     @FindBy(xpath = "//*[@id=\"addbutton\"]")
-    private WebElement inputAddElement;
+    private WebElement addButtonElement;
 
-    @FindBy(xpath = "/html/body/div[1]/div/h2")
-    private WebElement headText;
-
-    public String getLableRemaining(){
-        return labelRemaining.getText();
+    public String getNumCheckboxes(){
+        return numCheckboxes.getText();
     }
     public String getHeadText(){
         return headText.getText();
     }
 
-    public Boolean isCrossedOutItem(Integer id){
+    public Boolean isTickBox(Integer id){
         WebElement item = listItem.findElements(By.tagName("li")).get(id).findElement(By.tagName("span"));
         return item.getAttribute("class").equals("done-true");
     }
@@ -49,8 +47,9 @@ public class LambdaPage {
     public Integer getSizeList(){
         return listItem.findElements(By.tagName("li")).size();
     }
+
     public void addNewElement(String name){
-        inputNameElement.sendKeys(name);
-        inputAddElement.click();
+        nameInputField.sendKeys(name);
+        addButtonElement.click();
     }
 }

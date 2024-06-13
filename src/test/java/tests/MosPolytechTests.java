@@ -1,6 +1,4 @@
 //package tests;
-//
-//
 //import io.qameta.allure.*;
 //import driver.ConfProperties;
 //import driver.DriverSetup;
@@ -12,26 +10,24 @@
 //import org.junit.jupiter.api.extension.ExtendWith;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
-//
-//
 //import java.time.LocalDate;
-//
 //import static org.junit.jupiter.api.Assertions.assertTrue;
 //
 //
 //@ExtendWith(TestListener.class)
-//@Feature("Тесты сайта Московского политеха")
-//public class MosPolytechTest extends DriverSetup {
+//@Feature("Tests Moscow Polytech")
+//public class MosPolytechTests extends DriverSetup {
 //
 //    public static MosPolytechPage mosPolytechPage;
 //    public static MosPolytechSchedulePage mosPolytechSchedulePage;
-//    private static final Logger logger = LoggerFactory.getLogger(MosPolytechTest.class);
+//    private static final Logger logger = LoggerFactory.getLogger(MosPolytechTests.class);
 //
 //    @Test
-//    @Link(name = "MosPolytech", url = "https://mospolytech.ru/")
-//    @Owner(value = "Яровой Денис")
-//    @DisplayName("Провекра отображения расписания на сайте Московского политеха")
-//    @Description("Переходим на сайт политеха, кликаем по расписанию, кликаем по расписанию, переходим на страницу расписания, вводим группу, выбираем группу, проверяем подстветку дня недели")
+//    @Link(name = "Moscow Polytech", url = "https://mospolytech.ru/")
+//    @Owner(value = "Yarovoy Denis")
+//    @DisplayName("Checking the schedule display on the Moscow Polytechnic website")
+//    @Description("Go to the Polytech website, click on the schedule, click on the schedule again, " +
+//            "go to the schedule page, enter the group, select the group, check the highlight of the weekday.")
 //    @Epic("Test for site https://mospolytech.ru/ ")
 //    public void test(){
 //        logger.info("Start test page mospolytech");

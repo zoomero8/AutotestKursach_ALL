@@ -1,5 +1,4 @@
 package tests;
-
 import io.qameta.allure.*;
 import driver.ConfProperties;
 import driver.DriverSetup;
@@ -10,29 +9,27 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(TestListener.class)
-@Feature("Тесты сайта lambda sample app")
-public class LambdaTest extends DriverSetup {
+@Feature("Tests Lambda sample app")
+public class LambdaTests extends DriverSetup {
     public static LambdaPage lambdaPage;
-    private static final Logger logger = LoggerFactory.getLogger(LambdaTest.class);
-
+    private static final Logger logger = LoggerFactory.getLogger(LambdaTests.class);
 
     @Step("Step checking the list item")
     public void checkItem(Integer itemNum){
         logger.info("Item {} start check", itemNum);
-        assertFalse(lambdaPage.isCrossedOutItem(itemNum));
+        assertFalse(lambdaPage.isTickBox(itemNum));
         logger.info("Item not crossed out");
 
         lambdaPage.selectItem(itemNum);
         logger.info("Item clicked");
 
-        assertTrue(lambdaPage.isCrossedOutItem(itemNum));
+        assertTrue(lambdaPage.isTickBox(itemNum));
         logger.info("Item crossed out");
 
-        assertEquals(lambdaPage.getLableRemaining(), (lambdaPage.getSizeList()-itemNum-1) + " of " + lambdaPage.getSizeList() + " remaining");
+        assertEquals(lambdaPage.getNumCheckboxes(), (lambdaPage.getSizeList()-itemNum-1) + " of " + lambdaPage.getSizeList() + " remaining");
         logger.info("Label remaining checked");
 
         logger.info("Item checked " + itemNum);
@@ -40,9 +37,9 @@ public class LambdaTest extends DriverSetup {
 
     @Test
     @Link(name = "Lambda Sample App", url = "https://lambdatest.github.io/sample-todo-app/")
-    @Owner(value = "Яровой Денис")
-    @DisplayName("Провекра работы сайта lambda")
-    @Description("Переходим на сайт, кликаем по каждому пункту, создаем новый пункт, проверяем его")
+    @Owner(value = "Yarovoy Denis")
+    @DisplayName("Checking the functionality of the Lambda website")
+    @Description("Go to the website, click on each item, create a new item, verify it.")
     @Epic("Test for site https://lambdatest.github.io/sample-todo-app/ ")
     public void test(){
         logger.info("Start test page lambda sample app");
@@ -62,10 +59,10 @@ public class LambdaTest extends DriverSetup {
         lambdaPage.addNewElement("Test");
         logger.info("New item created with name 'Test'");
 
-        assertFalse(lambdaPage.isCrossedOutItem(lambdaPage.getSizeList()-1));
+        assertFalse(lambdaPage.isTickBox(lambdaPage.getSizeList()-1));
         logger.info("Item not crossed out");
 
-        assertEquals(lambdaPage.getLableRemaining(), "1 of " + lambdaPage.getSizeList() + " remaining");
+        assertEquals(lambdaPage.getNumCheckboxes(), "1 of " + lambdaPage.getSizeList() + " remaining");
         logger.info("Label remaining checked");
 
         checkItem(lambdaPage.getSizeList() - 1);

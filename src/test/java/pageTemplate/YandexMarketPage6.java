@@ -1,7 +1,5 @@
 package pageTemplate;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -13,29 +11,34 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class YandexMarketPage {
+public class YandexMarketPage6 {
     private final WebDriver driver;
-    public YandexMarketPage(WebDriver driver){
+    public YandexMarketPage6(WebDriver driver){
         PageFactory.initElements(driver, this);
         this.driver = driver;
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-//        wait.until(visibilityOfElementLocated(By.xpath("//input[@class='groups']")));
     }
-    //
+
     @FindBy(xpath = "//div[@data-baobab-name='catalog']/button")
     private WebElement buttonCatalog;
-    @FindBy(xpath = "//li[@data-zone-name='category-link' and child::a[contains(@href,'/catalog--kompiuternaia-tekhnika/')]]")
-    private WebElement catalogElementComputer;
 
-    @FindBy(xpath = "//div[contains(@data-zone-data, '/catalog--vnutrennie-zhestkie-diski/')]/a")
-    private WebElement catalogElementDisk;
+    @FindBy(xpath = "//li[@data-zone-name='category-link' and child::a[contains(@href,'/catalog--geiming/41813350')]]")
+    private WebElement catalogElementGaming;
 
+    @FindBy(xpath = "//div[@data-baobab-name='linkSnippet']//a[contains(@href, '/catalog--igrovye-pristavki-xbox/41813471/list') and text()='Игровые приставки']")
+    private WebElement catalogElementXbox;
 
-    @FindBy(xpath = "//div[@data-apiary-widget-name='@light/Organic']")
+    @FindBy(xpath = "//div[@data-apiary-widget-name='@light/Organic']") // каждый Xbox с начала
     private List<WebElement> catalog;
 
-    @FindBy(xpath = "//button[text()='подешевле']")
-    private WebElement sortButton;
+    @FindBy(xpath = "//button[@title='Добавить в избранное']")
+    private WebElement favouriteButtonXbox;
+
+    @FindBy(xpath = "//div[@data-baobab-name='favorites'][.//div[@role='alert' and contains(text(), 'Избранное')]]")
+    private WebElement favouriteMenu;
+
+    @FindBy(xpath = "//button[contains(@class, '_2VECW') and @title='Удалить из избранного']")
+    private WebElement delFavourite;
+
 
     public void clickCatalog(){
         buttonCatalog.click();
@@ -43,11 +46,23 @@ public class YandexMarketPage {
 
     public void clickCatalogElementComputer(){
         Actions action = new Actions(driver);
-        action.moveToElement(catalogElementComputer).build().perform();
+        action.moveToElement(catalogElementGaming).build().perform();
     }
 
     public void clickCatalogElementDisk(){
-        catalogElementDisk.click();
+        catalogElementXbox.click();
+    }
+
+    public void clickFavouritePage(){
+        favouriteMenu.click();
+    }
+
+    public void clickDelFavouriteButton() {
+        delFavourite.click();
+    }
+
+    public void clickAddFavouriteButton(){
+        favouriteButtonXbox.click();
     }
 
     public List<Map<String, String>> getProductListFirst(Integer count){
@@ -65,27 +80,14 @@ public class YandexMarketPage {
         return list;
     }
 
-    public void clickSort(){
-        sortButton.click();
-        try {
-            TimeUnit.SECONDS.sleep(3);
-            Actions action = new Actions(driver);
-            action.moveToElement(
-                    driver.findElement(By.xpath("//button[@data-auto='pager-more']"))).build().perform();
-            TimeUnit.SECONDS.sleep(5);
-
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public List<Integer> getProductPriceListFirst(Integer count){
+    public List<Integer> getProductPriceListFirst(Integer count) {
         List<Integer> list = new ArrayList<>();
         catalog = driver.findElements(By.xpath("//div[@data-apiary-widget-name='@light/Organic']"));
 
-        for (int i = 0; i < count; i++){
+        for (int i = 0; i < count; i++) {
             WebElement product = catalog.get(i);
-            list.add(Integer.parseInt(product.findElement(By.xpath(".//span[@data-auto='snippet-price-current']/span[1]")).getText().replaceAll(" ", "")));
+            int price = Integer.parseInt(product.findElement(By.xpath(".//span[@data-auto='snippet-price-current']/span[1]")).getText().replaceAll(" ", ""));
+            list.add(price);
         }
         return list;
     }
