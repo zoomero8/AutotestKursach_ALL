@@ -66,10 +66,10 @@ public class YandexTest extends DriverSetup {
         yandexMarketPage.clickCatalog();
         logger.info("Pressed catalog");
 
-        yandexMarketPage.clickCatalogElementComputer();
+        yandexMarketPage.clickCatalogElementGaming();
         logger.info("Selected element computer");
 
-        yandexMarketPage.clickCatalogElementDisk();
+        yandexMarketPage.clickCatalogElementXbox();
         logger.info("Clicked Internal hard drives");
     }
 
@@ -77,6 +77,7 @@ public class YandexTest extends DriverSetup {
     private void addFavourite(){
         yandexMarketPage.clickAddFavouriteButton();
         logger.info("Товар добавлен в избранное");
+        driver.navigate().refresh();
     }
 
     @Step("Переход на страницу избранного")
@@ -85,10 +86,24 @@ public class YandexTest extends DriverSetup {
         logger.info("Перешли на страницу избранного");
     }
 
+//    @Step
+//    private void delFavouriteProduct(){
+//        yandexMarketPage.clickDelFavouriteButton();
+//        logger.info("Удалили избранный товар");
+//        driver.navigate().refresh();
+//    }
+
     @Step
-    private void delFavouriteProduct(){
-        yandexMarketPage.clickDelFavouriteButton();
-        logger.info("Удалили избранный товар");
+    private void delFavouriteProducts() {
+        // Переходим на страницу избранного
+        yandexMarketPage.clickFavouritePage();
+        // Цикл продолжается, пока избранное не опустеет
+        while (!yandexMarketPage.isFavoritesEmpty()) {
+            yandexMarketPage.clickDelFavouriteButtons(); // Метод должен удалять все видимые товары
+            driver.navigate().refresh();
+        }
+        logger.info("Все избранные товары удалены");
+        driver.navigate().refresh(); // Финальное обновление для подтверждения
     }
 
 
@@ -103,7 +118,6 @@ public class YandexTest extends DriverSetup {
         stepLogProduct();
         addFavourite();
         goTofavourite();
-        delFavouriteProduct();
-        driver.navigate().refresh();
+        delFavouriteProducts();
     }
 }
