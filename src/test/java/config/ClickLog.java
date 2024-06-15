@@ -1,4 +1,4 @@
-package driver;
+package config;
 import io.qameta.allure.Allure;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,8 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 
-public class CustomEvent implements WebDriverListener {
-    private static Logger logger = LoggerFactory.getLogger(WebDriver.class);
+public class ClickLog implements WebDriverListener {
+//    private static Logger logger = LoggerFactory.getLogger(WebDriver.class);
 
     @Override
     public void beforeClick(WebElement element) {

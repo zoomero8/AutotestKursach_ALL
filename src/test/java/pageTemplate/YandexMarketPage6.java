@@ -5,6 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +26,7 @@ public class YandexMarketPage6 {
     @FindBy(xpath = "//a[.//span[text()='Все для гейминга']]")
     private WebElement catalogElementGaming;
 
-    @FindBy(xpath = "//a[contains(@href, '/catalog--igrovye-pristavki-xbox/41813471/list') and text()='Игровые приставки']")
+    @FindBy(xpath = "//a[contains(@href, '/catalog--igrovye-pristavki-xbox') and text()='Игровые приставки']")
     private WebElement catalogElementXbox;
 
     @FindBy(xpath = "//div[@data-apiary-widget-name='@light/Organic']") // каждый Xbox с начала
@@ -53,19 +56,14 @@ public class YandexMarketPage6 {
     }
 
     public void clickFavouritePage(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         favouriteMenu.click();
     }
 
     public void clickDelFavouriteButtons() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         delFavourite.click();
     }
-
-//    public void clickDelFavouriteButtons() {
-//        List<WebElement> deleteButtons = driver.findElements(By.xpath("//button[@title='Удалить из избранного']"));
-//        for (WebElement button : deleteButtons) {
-//            button.click();
-//        }
-//    }
 
     public boolean isFavoritesEmpty() {
         // Проверка на наличие текста, указывающего на пустое избранное
@@ -73,10 +71,9 @@ public class YandexMarketPage6 {
         return !emptyMessage.isEmpty(); // Если сообщение найдено, избранное пусто
     }
 
-
-
     public void clickAddFavouriteButton(){
         favouriteButtonXbox.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
     public List<Map<String, String>> getProductListFirst(Integer count){
@@ -93,16 +90,4 @@ public class YandexMarketPage6 {
         }
         return list;
     }
-
-//    public List<Integer> getProductPriceListFirst(Integer count) {
-//        List<Integer> list = new ArrayList<>();
-//        catalog = driver.findElements(By.xpath("//div[@data-apiary-widget-name='@light/Organic']"));
-//
-//        for (int i = 0; i < count; i++) {
-//            WebElement product = catalog.get(i);
-//            int price = Integer.parseInt(product.findElement(By.xpath(".//span[@data-auto='snippet-price-current']/span[1]")).getText().replaceAll(" ", ""));
-//            list.add(price);
-//        }
-//        return list;
-//    }
 }

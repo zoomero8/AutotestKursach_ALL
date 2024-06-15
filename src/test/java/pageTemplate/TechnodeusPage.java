@@ -3,10 +3,12 @@ package pageTemplate;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,97 +16,117 @@ import java.util.Map;
 
 public class TechnodeusPage {
     private final WebDriver driver;
-    public TechnodeusPage(WebDriver driver){
+
+    public TechnodeusPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
-    @FindBy(xpath = "//div[@data-baobab-name='catalog']/button")
-    private WebElement buttonCatalog;
+    @FindBy(xpath = "//input[@placeholder='Поиск по каталогу']")
+    private WebElement searchForm;
 
-    @FindBy(xpath = "//a[.//span[text()='Все для гейминга']]")
-    private WebElement catalogElementGaming;
+    @FindBy(xpath = "//button[@type='submit' and contains(@class, 'btn-primary')]/i[contains(@class, 'fa-search')]/..")
+    private WebElement searchButton;
 
-    @FindBy(xpath = "//a[contains(@href, '/catalog--igrovye-pristavki-xbox/41813471/list') and text()='Игровые приставки']")
-    private WebElement catalogElementXbox;
+    @FindBy(xpath = "//a[contains(@class, 'favorites-not-added')]//i[contains(@class, 'fa-heart')]")
+    private WebElement favouriteButton;
 
-    @FindBy(xpath = "//div[@data-apiary-widget-name='@light/Organic']") // каждый Xbox с начала
+    @FindBy(xpath = "//div[contains(@class, 'product_card-cell')]") // каждый телефон с начала
     private List<WebElement> catalog;
 
-    @FindBy(xpath = "//button[@title='Добавить в избранное']")
-    private WebElement favouriteButtonXbox;
+    @FindBy(xpath = "//a[@href='/favorites' and contains(., 'Избранное')]")
+    private WebElement favouriteButtonMenu;
 
-    @FindBy(xpath = "//div[@data-baobab-name='favorites'][.//div[@role='alert' and contains(text(), 'Избранное')]]")
-    private WebElement favouriteMenu;
+    @FindBy(xpath = "//a[contains(@class, 'favorites-added') and .//i[contains(@class, 'fa-trash')]]")
+    private WebElement delFavouriteButton;
 
-    @FindBy(xpath = "//button[@title='Удалить из избранного']")
-    private WebElement delFavourite;
+    @FindBy(xpath = "//a[text()='Смартфоны']")
+    private WebElement phoneButton;
 
+    @FindBy(xpath = "//select[@id='collection_order']/option[@value='descending_price']")
+    private WebElement topToLowFilter;
 
-    public void clickCatalog(){
-        buttonCatalog.click();
+    public void searchItem(String query) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(searchForm));
+        searchForm.clear();
+        searchForm.sendKeys(query);
+        wait.until(ExpectedConditions.elementToBeClickable(searchButton));
+        searchButton.click();
     }
 
-    public void clickCatalogElementGaming(){
-        Actions action = new Actions(driver);
-        action.moveToElement(catalogElementGaming).build().perform();
-    }
-
-    public void clickCatalogElementXbox(){
-        catalogElementXbox.click();
+    public void goToPhones(){
+        phoneButton.click();
+        topToLowFilter.click();
     }
 
     public void clickFavouritePage(){
-        favouriteMenu.click();
+        favouriteButtonMenu.click();
     }
 
     public void clickDelFavouriteButtons() {
-        delFavourite.click();
+        List<WebElement> deleteButtons = driver.findElements(By.xpath("//a[contains(@class, 'favorites-added') and .//i[contains(@class, 'fa-trash')]]"));
+        for (WebElement button : deleteButtons) {
+            button.click();
+        }
     }
-
-//    public void clickDelFavouriteButtons() {
-//        List<WebElement> deleteButtons = driver.findElements(By.xpath("//button[@title='Удалить из избранного']"));
-//        for (WebElement button : deleteButtons) {
-//            button.click();
-//        }
-//    }
 
     public boolean isFavoritesEmpty() {
-        // Проверка на наличие текста, указывающего на пустое избранное
-        List<WebElement> emptyMessage = driver.findElements(By.xpath("//span[text()='Войдите в аккаунт']"));
-        return !emptyMessage.isEmpty(); // Если сообщение найдено, избранное пусто
+        // Проверка на наличие кнопок удаления из избранного
+        List<WebElement> deleteButtons = driver.findElements(By.xpath("//a[contains(@class, 'favorites-added') and .//i[contains(@class, 'fa-trash')]]"));
+
+        // Избранное считается пустым, если не найдено ни одной кнопки удаления
+        return deleteButtons.isEmpty();
     }
-
-
 
     public void clickAddFavouriteButton(){
-        favouriteButtonXbox.click();
+        favouriteButton.click();
     }
 
-    public List<Map<String, String>> getProductListFirst(Integer count){
-        List<Map<String, String>> list = new ArrayList<Map<String, String>>();
-        for (int i = 0; i < count; i++) {
+    public List<Map<String, Object>> getProductListFirst(Integer count) {
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (int i = 0; i < count && i < catalog.size(); i++) {
             WebElement product = catalog.get(i);
-            WebElement name = product.findElement(By.xpath(".//h3[@data-auto='snippet-title']"));
-            WebElement price = product.findElement(By.xpath(".//span[@data-auto='snippet-price-current']/span[1]"));
+            WebElement name = product.findElement(By.xpath(".//a[contains(@class, 'title')]")); // Используйте относительный XPath
+            WebElement price = product.findElement(By.xpath(".//div[contains(@class, 'product_card_controls')]//var[contains(@class, 'price')]")); // Используйте относительный XPath
 
-            HashMap<String, String> item = new HashMap<>();
+            HashMap<String, Object> item = new HashMap<>();
             item.put("name", name.getText());
-            item.put("price", price.getText());
+
+            // Извлечение только чисел из строки цены и преобразование в Integer
+            String priceText = price.getText().replaceAll("[^\\d]", ""); // Удаляем все кроме цифр
+            Integer priceValue = Integer.parseInt(priceText); // Преобразуем строку в Integer
+            item.put("price", priceValue);
+
             list.add(item);
         }
         return list;
     }
 
-//    public List<Integer> getProductPriceListFirst(Integer count) {
-//        List<Integer> list = new ArrayList<>();
-//        catalog = driver.findElements(By.xpath("//div[@data-apiary-widget-name='@light/Organic']"));
-//
-//        for (int i = 0; i < count; i++) {
-//            WebElement product = catalog.get(i);
-//            int price = Integer.parseInt(product.findElement(By.xpath(".//span[@data-auto='snippet-price-current']/span[1]")).getText().replaceAll(" ", ""));
-//            list.add(price);
-//        }
-//        return list;
-//    }
+
+    public List<Integer> getProductPriceListFirst(Integer count) {
+        List<Integer> list = new ArrayList<>();
+        // Загрузка элементов карточек продукта
+        List<WebElement> catalog = driver.findElements(By.xpath("//div[contains(@class, 'product_card-cell')]"));
+
+        // Убедитесь, что запрос не превышает количество найденных элементов
+        int effectiveCount = Math.min(count, catalog.size());
+
+        for (int i = 0; i < effectiveCount; i++) {
+            WebElement product = catalog.get(i);
+            try {
+                // Получение текста элемента с ценой и удаление всех нечисловых символов
+                String priceText = product.findElement(By.xpath(".//div[contains(@class, 'product_card_controls')]//var[contains(@class, 'price')]")).getText().replaceAll("[^\\d]", "");
+                // Преобразование очищенной строки в целое число
+                int price = Integer.parseInt(priceText);
+                list.add(price);
+            } catch (NumberFormatException e) {
+                // Логирование или другие действия по обработке ошибки преобразования строки в число
+                System.err.println("Ошибка преобразования цены в число для элемента " + i + ": " + e.getMessage());
+            }
+        }
+        return list;
+    }
+
+
 }

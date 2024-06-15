@@ -19,7 +19,7 @@ public class MosPolytechPage {
         this.driver = driver;
     }
 
-    public void clickLinkSchedule(){
+    public void clickScheduleMenu(){
         linkSchedule.click();
     }
 

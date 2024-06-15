@@ -1,9 +1,9 @@
 package tests;
 import io.qameta.allure.*;
-import driver.ConfProperties;
-import driver.DriverSetup;
+import config.AddProp;
+import config.DriverAdd;
 import pageTemplate.LambdaPage;
-import driver.TestListener;
+import config.TestListener;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(TestListener.class)
 @Feature("Tests Lambda sample app")
-public class LambdaTests extends DriverSetup {
+public class LambdaTests extends DriverAdd {
     public static LambdaPage lambdaPage;
     private static final Logger logger = LoggerFactory.getLogger(LambdaTests.class);
 
@@ -45,7 +45,7 @@ public class LambdaTests extends DriverSetup {
         logger.info("Start test page lambda sample app");
         lambdaPage = new LambdaPage(driver);
 
-        driver.get(ConfProperties.getProperties("lambdaPage"));
+        driver.get(AddProp.getProperties("lambdaPage"));
         logger.info("Page get success");
 
         assertEquals(lambdaPage.getHeadText(), "LambdaTest Sample App");

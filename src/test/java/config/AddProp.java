@@ -1,10 +1,10 @@
-package driver;
+package config;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-public class ConfProperties {
+public class AddProp {
     protected static Properties PROPERTIES;
     static {
         try(FileInputStream fileInputStream = new FileInputStream("src/test/resources/conf.properties")){

@@ -1,4 +1,4 @@
-package driver;
+package config;
 import io.qameta.allure.Allure;
 import org.codehaus.plexus.util.FileUtils;
 import tests.LambdaTests;
@@ -20,28 +20,30 @@ public class TestListener implements TestWatcher {
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
         Allure.getLifecycle().addAttachment("Screenshot at the test failure point", "image/png", "png",
-                ((TakesScreenshot) DriverSetup.driver).getScreenshotAs(OutputType.BYTES));
-        Allure.addAttachment("Logs after test failure: ",String.valueOf(DriverSetup.driver.manage().logs().get(LogType.BROWSER).getAll()));
-        DriverSetup.driver.quit();
+                ((TakesScreenshot) DriverAdd.driver).getScreenshotAs(OutputType.BYTES));
+        Allure.addAttachment("Logs after test failure: ",String.valueOf(DriverAdd.driver.manage().logs().get(LogType.BROWSER).getAll()));
+        DriverAdd.driver.quit();
         logger.error("Test failed");
+
         try {
-            File srcFile = ((TakesScreenshot) DriverSetup.driver).getScreenshotAs(OutputType.FILE);
+            File srcFile = ((TakesScreenshot) DriverAdd.driver).getScreenshotAs(OutputType.FILE);
             DateTimeFormatter format = DateTimeFormatter.ofPattern("uuuu-MMM-dd-HH-mm-ss");
             String pathName = "testFailed-(" + context.getDisplayName().replaceAll(" ", "-").replaceAll("[\\/\\?]", "_") + ")-" + LocalDateTime.now().format(format) + ".png";
             FileUtils.copyFile(srcFile, new File(pathName));
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RuntimeException(e);
         }
-        DriverSetup.driver.quit();
+        DriverAdd.driver.quit();
     }
 
     @Override
     public void testSuccessful(ExtensionContext context) {
         Allure.getLifecycle().addAttachment("Screenshot after the test passed successfully", "image/png", "png",
-                ((TakesScreenshot) DriverSetup.driver).getScreenshotAs(OutputType.BYTES));
-        Allure.addAttachment("Logs after the test passed successfully: ",String.valueOf(DriverSetup.driver.manage().logs().get(LogType.BROWSER).getAll()));
-        DriverSetup.driver.quit();
+                ((TakesScreenshot) DriverAdd.driver).getScreenshotAs(OutputType.BYTES));
+        Allure.addAttachment("Logs after the test passed successfully: ",String.valueOf(DriverAdd.driver.manage().logs().get(LogType.BROWSER).getAll()));
+        DriverAdd.driver.quit();
         logger.info("Test success");
-        DriverSetup.driver.quit();
+        DriverAdd.driver.quit();
     }
 }
