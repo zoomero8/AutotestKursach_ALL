@@ -1,24 +1,21 @@
 package tests;
-
 import config.AddProp;
 import config.DriverAdd;
 import config.TestListener;
 import io.qameta.allure.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pageTemplate.ReqresPage;
-import pageTemplate.TechnodeusPage;
 
 @ExtendWith(TestListener.class)
 @Feature("Check API and UI ReqresIn")
-public class ReqresInFrontTests extends DriverAdd {
+public class ReqresFrontTests extends DriverAdd {
 
     private ReqresPage reqresInPage;
-    private static final Logger logger = LoggerFactory.getLogger(ReqresInFrontTests.class);
+    private static final Logger logger = LoggerFactory.getLogger(ReqresFrontTests.class);
 
     @Test
     @Link(name = "Reqres Front Tests", url = "https://reqres.in/")

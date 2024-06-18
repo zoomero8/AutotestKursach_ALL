@@ -5,7 +5,6 @@ import config.TestListener;
 import data5task.*;
 import io.qameta.allure.*;
 import io.restassured.http.ContentType;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,9 +18,9 @@ import static org.hamcrest.Matchers.*;
 
 @ExtendWith(TestListener.class)
 @Feature("ReqresIn Backend tests")
-public class ReqresInBackTests extends LoadAPI_Tests {
+public class ReqresBackTests extends LoadAPI_Tests {
 
-    private static final Logger logger = LoggerFactory.getLogger(ReqresInBackTests.class);
+    private static final Logger logger = LoggerFactory.getLogger(ReqresBackTests.class);
 
     @Test
     @Link(name = "Reqres Back Tests", url = "https://reqres.in/")
@@ -151,90 +150,82 @@ public class ReqresInBackTests extends LoadAPI_Tests {
         logger.info("Test '[GET] Retrieve resource with an incorrect id' completed successfully");
     }
 
-    @SneakyThrows
     @Step("[POST] Create a user with the name: morpheus | position: leader")
     public void createUser() {
-//        UserRequest userRequest =
-//                UserRequest.builder()
-//                        .name("morpheus")
-//                        .job("leader")
-//                        .build();
-//        UserResponse userResponse = given()
-//                .contentType(ContentType.JSON)
-//                .body(userRequest)
-//                .when()
-//                .post("https://reqres.in/api/users")
-//                .then()
-//                .statusCode(201)
-//                .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("jsonSchemas/UserCreateResponseSchema.json"))
-//                .extract().as(UserResponse.class);
-//        assertThat(userResponse.getName()).isEqualTo(userRequest.getName());
-//        assertThat(userResponse.getJob()).isEqualTo(userRequest.getJob());
-        Thread.sleep(346);
+        UserRequest userRequest =
+                UserRequest.builder()
+                        .name("morpheus")
+                        .job("leader")
+                        .build();
+        UserResponse userResponse = given()
+                .contentType(ContentType.JSON)
+                .body(userRequest)
+                .when()
+                .post("https://reqres.in/api/users")
+                .then()
+                .statusCode(201)
+                .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("jsonSchemas/UserCreateResponseSchema.json"))
+                .extract().as(UserResponse.class);
+        assertThat(userResponse.getName()).isEqualTo(userRequest.getName());
+        assertThat(userResponse.getJob()).isEqualTo(userRequest.getJob());
         logger.info("Test '[POST] Create a user with the name: morpheus | position: leader' completed successfully");
     }
 
-
-    @SneakyThrows
     @Step("[PUT] Update user via PUT method")
     public void updateUserPut() {
-//        UserRequest userRequest =
-//                UserRequest.builder()
-//                        .name("morpheus")
-//                        .job("zion resident")
-//                        .build();
-//
-//        UserResponse userResponse = given()
-//                .contentType(ContentType.JSON)
-//                .body(userRequest)
-//                .when()
-//                .put("https://reqres.in/api/users/2")
-//                .then()
-//                .statusCode(200)
-//                .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("jsonSchemas/UserUpdateResponseSchema.json"))
-//                .extract().as(UserResponse.class);
-//
-//        assertThat(userResponse.getName()).isEqualTo(userRequest.getName());
-//        assertThat(userResponse.getJob()).isEqualTo(userRequest.getJob());
-        Thread.sleep(411);
+        UserRequest userRequest =
+                UserRequest.builder()
+                        .name("morpheus")
+                        .job("zion resident")
+                        .build();
+
+        UserResponse userResponse = given()
+                .contentType(ContentType.JSON)
+                .body(userRequest)
+                .when()
+                .put("https://reqres.in/api/users/2")
+                .then()
+                .statusCode(200)
+                .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("jsonSchemas/UserUpdateResponseSchema.json"))
+                .extract().as(UserResponse.class);
+
+        assertThat(userResponse.getName()).isEqualTo(userRequest.getName());
+        assertThat(userResponse.getJob()).isEqualTo(userRequest.getJob());
         logger.info("Test '[PUT] Update user via PUT method' completed successfully");
     }
 
-    @SneakyThrows
     @Step("[PATCH] Update user via PATCH method")
     public void updateUserPatch() {
-//        UserRequest userRequest =
-//                UserRequest.builder()
-//                        .name("morpheus")
-//                        .job("zion resident")
-//                        .build();
-//
-//        UserResponse userResponse = given()
-//                .contentType(ContentType.JSON)
-//                .body(userRequest)
-//                .when()
-//                .patch("https://reqres.in/api/users/2")
-//                .then()
-//                .statusCode(200)
-//                .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("jsonSchemas/UserUpdateResponseSchema.json"))
-//                .extract().as(UserResponse.class);
-//
-//        assertThat(userResponse.getName()).isEqualTo(userRequest.getName());
-//        assertThat(userResponse.getJob()).isEqualTo(userRequest.getJob());
-        Thread.sleep(308);
+        UserRequest userRequest =
+                UserRequest.builder()
+                        .name("morpheus")
+                        .job("zion resident")
+                        .build();
+
+        UserResponse userResponse = given()
+                .contentType(ContentType.JSON)
+                .body(userRequest)
+                .when()
+                .patch("https://reqres.in/api/users/2")
+                .then()
+                .statusCode(200)
+                .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("jsonSchemas/UserUpdateResponseSchema.json"))
+                .extract().as(UserResponse.class);
+
+        assertThat(userResponse.getName()).isEqualTo(userRequest.getName());
+        assertThat(userResponse.getJob()).isEqualTo(userRequest.getJob());
+
         logger.info("Test '[PATCH] Update user via PATCH method' completed successfully");
     }
 
-    @SneakyThrows
     @Step("[DELETE] Delete user")
     public void deleteUser() {
-//        given().
-//                when()
-//                .delete("https://reqres.in/api/users/2")
-//                .then()
-//                .statusCode(204)
-//                .body(equalTo(""));
-        Thread.sleep(298);
+        given().
+                when()
+                .delete("https://reqres.in/api/users/2")
+                .then()
+                .statusCode(204)
+                .body(equalTo(""));
         logger.info("Test '[DELETE] Delete user' completed successfully");
     }
 
@@ -351,3 +342,4 @@ public class ReqresInBackTests extends LoadAPI_Tests {
         logger.info("Test '[GET] Retrieve user list with a 3-second delay' completed successfully");
     }
 }
+

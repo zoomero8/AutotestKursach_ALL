@@ -1,6 +1,4 @@
 package pageTemplate;
-
-
 import config.ClickLog;
 import io.qameta.allure.internal.shadowed.jackson.databind.JsonNode;
 import io.qameta.allure.internal.shadowed.jackson.databind.ObjectMapper;
@@ -15,9 +13,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.List;
-
 import static io.restassured.RestAssured.given;
 
 public class ReqresPage extends ClickLog {
