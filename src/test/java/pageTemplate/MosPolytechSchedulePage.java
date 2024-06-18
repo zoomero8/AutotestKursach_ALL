@@ -12,10 +12,10 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 public class MosPolytechSchedulePage {
     private final WebDriver driver;
 
-    @FindBy(xpath = "/html/body/div[1]/div[1]/div[1]/div[3]/input[1]")
+    @FindBy(xpath = "//input[@class='groups']")
     private WebElement inputGroups;
 
-    @FindBy(xpath = "/html/body/div[1]/div[1]/div[2]")
+    @FindBy(xpath = "//div[contains(@class, 'found-groups')]")
     private WebElement groupsList;
 
     @FindBy(xpath = "//div[starts-with(@class,'schedule-day')]")

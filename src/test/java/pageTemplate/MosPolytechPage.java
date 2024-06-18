@@ -7,10 +7,10 @@ import org.openqa.selenium.support.PageFactory;
 public class MosPolytechPage {
     public WebDriver driver;
 
-    @FindBy(xpath = "/html/body/header/nav/div[1]/div[2]/div[1]/div/ul/li[3]/a")
+    @FindBy(xpath = "//a[@title='Расписание']")
     private WebElement linkSchedule;
 
-    @FindBy(xpath = "//*[@id=\"bx_3777608605_2811\"]/div[3]/div/div[1]/a")
+    @FindBy(xpath = "//a[@href='https://rasp.dmami.ru/']")
     private WebElement linkSchedulePageGroup;
 
 

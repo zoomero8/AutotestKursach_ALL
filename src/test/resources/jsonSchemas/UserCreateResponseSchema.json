@@ -1,6 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "User created",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
     "name": {
@@ -16,6 +15,7 @@
       "type": "string"
     }
   },
+  "additionalProperties": false,
   "required": [
     "name",
     "job",

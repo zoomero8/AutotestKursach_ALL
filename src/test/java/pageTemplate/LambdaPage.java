@@ -13,13 +13,13 @@ public class LambdaPage {
         this.driver = driver;
     }
 
-    @FindBy(xpath = "/html/body/div[1]/div/h2")
+    @FindBy(xpath = "//h2")
     private WebElement headText;
 
-    @FindBy(xpath="/html/body/div[1]/div/div/span")
+    @FindBy(xpath="//span[@class='ng-binding']")
     private WebElement numCheckboxes;
 
-    @FindBy(xpath = "/html/body/div[1]/div/div/ul")
+    @FindBy(xpath = "//ul")
     private WebElement listItem;
 
     @FindBy(xpath = "//*[@id=\"sampletodotext\"]")

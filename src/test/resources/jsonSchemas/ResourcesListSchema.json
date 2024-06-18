@@ -1,6 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "User from page",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
     "page": {
@@ -23,25 +22,26 @@
           "id": {
             "type": "integer"
           },
-          "email": {
+          "name": {
             "type": "string"
           },
-          "first_name": {
+          "year": {
+            "type": "integer"
+          },
+          "color": {
             "type": "string"
           },
-          "last_name": {
-            "type": "string"
-          },
-          "avatar": {
+          "pantone_value": {
             "type": "string"
           }
         },
+        "additionalProperties": false,
         "required": [
           "id",
-          "email",
-          "first_name",
-          "last_name",
-          "avatar"
+          "name",
+          "year",
+          "color",
+          "pantone_value"
         ]
       }
     },
@@ -55,12 +55,14 @@
           "type": "string"
         }
       },
+      "additionalProperties": false,
       "required": [
         "url",
         "text"
       ]
     }
   },
+  "additionalProperties": false,
   "required": [
     "page",
     "per_page",

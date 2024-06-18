@@ -1,6 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Color from page",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
     "page": {
@@ -23,25 +22,26 @@
           "id": {
             "type": "integer"
           },
-          "nam": {
+          "email": {
             "type": "string"
           },
-          "year": {
-            "type": "integer"
-          },
-          "color": {
+          "first_name": {
             "type": "string"
           },
-          "pantone_value": {
+          "last_name": {
+            "type": "string"
+          },
+          "avatar": {
             "type": "string"
           }
         },
+        "additionalProperties": false,
         "required": [
           "id",
-          "name",
-          "year",
-          "color",
-          "pantone_value"
+          "email",
+          "first_name",
+          "last_name",
+          "avatar"
         ]
       }
     },
@@ -55,12 +55,14 @@
           "type": "string"
         }
       },
+      "additionalProperties": false,
       "required": [
         "url",
         "text"
       ]
     }
   },
+  "additionalProperties": false,
   "required": [
     "page",
     "per_page",

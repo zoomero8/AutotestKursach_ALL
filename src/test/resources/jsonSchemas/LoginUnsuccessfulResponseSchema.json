@@ -1,12 +1,12 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Error",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
     "error": {
       "type": "string"
     }
   },
+  "additionalProperties": false,
   "required": [
     "error"
   ]
