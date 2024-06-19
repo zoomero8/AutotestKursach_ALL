@@ -1,4 +1,4 @@
-package data5task;
+package data;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRequest {
-    private String name;
-    private String job;
+public class RegisterAndLoginRequest {
+    private String email;
+    private String password;
 }

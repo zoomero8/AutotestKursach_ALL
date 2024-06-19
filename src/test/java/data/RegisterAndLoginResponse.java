@@ -1,4 +1,4 @@
-package data5task;
+package data;
 
 import io.qameta.allure.internal.shadowed.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

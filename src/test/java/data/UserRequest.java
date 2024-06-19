@@ -1,16 +1,15 @@
-package data5task;
+package data;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResourceData {
-    private int id;
+public class UserRequest {
     private String name;
-    private int year;
-    private String color;
-    private String pantone_value;
+    private String job;
 }

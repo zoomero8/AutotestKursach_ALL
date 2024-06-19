@@ -1,4 +1,4 @@
-package data5task;
+package data;
 
 import io.qameta.allure.internal.shadowed.jackson.annotation.JsonFormat;
 import io.qameta.allure.internal.shadowed.jackson.annotation.JsonIgnoreProperties;

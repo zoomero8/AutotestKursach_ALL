@@ -2,7 +2,7 @@ package tests;
 
 import config.LoadAPI_Tests;
 import config.TestListener;
-import data5task.*;
+import data.*;
 import io.qameta.allure.*;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
@@ -22,31 +22,172 @@ public class ReqresBackTests extends LoadAPI_Tests {
 
     private static final Logger logger = LoggerFactory.getLogger(ReqresBackTests.class);
 
-    @Test
     @Link(name = "Reqres Back Tests", url = "https://reqres.in/")
     @Owner(value = "Yarovoy Denis")
     @DisplayName("Complete ReqresIn API Test")
     @Description("This test performs all checks for various ReqresIn API endpoints")
-    public void completeApiTest() {
+
+    @Test
+    public void testGetListUsers() {
         try {
             getListUsers();
-            getSingleUser();
-            getUserNotFound();
-            getListResources();
-            getSingleResource();
-            getResourceNotFound();
-            createUser();
-            updateUserPut();
-            updateUserPatch();
-            deleteUser();
-            registerSuccessful();
-            registerUnsuccessful();
-            loginSuccessful();
-            loginUnsuccessful();
-            getUsersWithDelay();
-            logger.info("Test 'Complete ReqresIn API Test' completed successfully");
+            logger.info("Test 'getListUsers' completed successfully");
         } catch (AssertionError e) {
-            logger.error("Test 'Complete ReqresIn API Test' completed with an error", e);
+            logger.error("Test 'getListUsers' completed with an error", e);
+            throw e;
+        }
+    }
+
+    @Test
+    public void testGetSingleUser() {
+        try {
+            getSingleUser();
+            logger.info("Test 'getSingleUser' completed successfully");
+        } catch (AssertionError e) {
+            logger.error("Test 'getSingleUser' completed with an error", e);
+            throw e;
+        }
+    }
+
+    @Test
+    public void testGetUserNotFound() {
+        try {
+            getUserNotFound();
+            logger.info("Test 'getUserNotFound' completed successfully");
+        } catch (AssertionError e) {
+            logger.error("Test 'getUserNotFound' completed with an error", e);
+            throw e;
+        }
+    }
+
+    @Test
+    public void testGetListResources() {
+        try {
+            getListResources();
+            logger.info("Test 'getListResources' completed successfully");
+        } catch (AssertionError e) {
+            logger.error("Test 'getListResources' completed with an error", e);
+            throw e;
+        }
+    }
+
+    @Test
+    public void testGetSingleResource() {
+        try {
+            getSingleResource();
+            logger.info("Test 'getSingleResource' completed successfully");
+        } catch (AssertionError e) {
+            logger.error("Test 'getSingleResource' completed with an error", e);
+            throw e;
+        }
+    }
+
+    @Test
+    public void testGetResourceNotFound() {
+        try {
+            getResourceNotFound();
+            logger.info("Test 'getResourceNotFound' completed successfully");
+        } catch (AssertionError e) {
+            logger.error("Test 'getResourceNotFound' completed with an error", e);
+            throw e;
+        }
+    }
+
+    @Test
+    public void testCreateUser() {
+        try {
+            createUser();
+            logger.info("Test 'createUser' completed successfully");
+        } catch (AssertionError e) {
+            logger.error("Test 'createUser' completed with an error", e);
+            throw e;
+        }
+    }
+
+    @Test
+    public void testUpdateUserPut() {
+        try {
+            updateUserPut();
+            logger.info("Test 'updateUserPut' completed successfully");
+        } catch (AssertionError e) {
+            logger.error("Test 'updateUserPut' completed with an error", e);
+            throw e;
+        }
+    }
+
+    @Test
+    public void testUpdateUserPatch() {
+        try {
+            updateUserPatch();
+            logger.info("Test 'updateUserPatch' completed successfully");
+        } catch (AssertionError e) {
+            logger.error("Test 'updateUserPatch' completed with an error", e);
+            throw e;
+        }
+    }
+
+    @Test
+    public void testDeleteUser() {
+        try {
+            deleteUser();
+            logger.info("Test 'deleteUser' completed successfully");
+        } catch (AssertionError e) {
+            logger.error("Test 'deleteUser' completed with an error", e);
+            throw e;
+        }
+    }
+
+    @Test
+    public void testRegisterSuccessful() {
+        try {
+            registerSuccessful();
+            logger.info("Test 'registerSuccessful' completed successfully");
+        } catch (AssertionError e) {
+            logger.error("Test 'registerSuccessful' completed with an error", e);
+            throw e;
+        }
+    }
+
+    @Test
+    public void testRegisterUnsuccessful() {
+        try {
+            registerUnsuccessful();
+            logger.info("Test 'registerUnsuccessful' completed successfully");
+        } catch (AssertionError e) {
+            logger.error("Test 'registerUnsuccessful' completed with an error", e);
+            throw e;
+        }
+    }
+
+    @Test
+    public void testLoginSuccessful() {
+        try {
+            loginSuccessful();
+            logger.info("Test 'loginSuccessful' completed successfully");
+        } catch (AssertionError e) {
+            logger.error("Test 'loginSuccessful' completed with an error", e);
+            throw e;
+        }
+    }
+
+    @Test
+    public void testLoginUnsuccessful() {
+        try {
+            loginUnsuccessful();
+            logger.info("Test 'loginUnsuccessful' completed successfully");
+        } catch (AssertionError e) {
+            logger.error("Test 'loginUnsuccessful' completed with an error", e);
+            throw e;
+        }
+    }
+
+    @Test
+    public void testGetUsersWithDelay() {
+        try {
+            getUsersWithDelay();
+            logger.info("Test 'getUsersWithDelay' completed successfully");
+        } catch (AssertionError e) {
+            logger.error("Test 'getUsersWithDelay' completed with an error", e);
             throw e;
         }
     }
@@ -63,7 +204,7 @@ public class ReqresBackTests extends LoadAPI_Tests {
                 .body("per_page", equalTo(6))
                 .body("total", equalTo(12))
                 .body("total_pages", equalTo(2))
-                .extract().jsonPath().getList("data5task", UserData.class);
+                .extract().jsonPath().getList("data", UserData.class);
         assertThat(users).extracting(UserData::getId).isNotNull();
         assertThat(users).extracting(UserData::getFirst_name).contains("Tobias");
         assertThat(users).extracting(UserData::getLast_name).contains("Funke");
@@ -78,7 +219,7 @@ public class ReqresBackTests extends LoadAPI_Tests {
                 .then()
                 .statusCode(200)
                 .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("jsonSchemas/UserSingleSchema.json"))
-                .extract().jsonPath().getObject("data5task", UserData.class);
+                .extract().jsonPath().getObject("data", UserData.class);
         assertThat(user.getId()).isEqualTo(2);
         assertThat(user.getEmail()).isEqualTo("janet.weaver@reqres.in");
         assertThat(user.getFirst_name()).isEqualTo("Janet");
@@ -110,7 +251,7 @@ public class ReqresBackTests extends LoadAPI_Tests {
                 .body("per_page", equalTo(6))
                 .body("total", equalTo(12))
                 .body("total_pages", equalTo(2))
-                .extract().jsonPath().getList("data5task", ResourceData.class);
+                .extract().jsonPath().getList("data", ResourceData.class);
 
         assertThat(resources).extracting(ResourceData::getId).isNotNull();
         assertThat(resources).extracting(ResourceData::getName).contains("cerulean");
@@ -128,7 +269,7 @@ public class ReqresBackTests extends LoadAPI_Tests {
                 .then()
                 .statusCode(200)
                 .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("jsonSchemas/ResourceSingleSchema.json"))
-                .extract().jsonPath().getObject("data5task", ResourceData.class);
+                .extract().jsonPath().getObject("data", ResourceData.class);
 
         assertThat(resource).isNotNull();
         assertThat(resource.getId()).isEqualTo(2);
@@ -334,7 +475,7 @@ public class ReqresBackTests extends LoadAPI_Tests {
                 .body("per_page", equalTo(6))
                 .body("total", equalTo(12))
                 .body("total_pages", equalTo(2))
-                .extract().jsonPath().getList("data5task", UserData.class);
+                .extract().jsonPath().getList("data", UserData.class);
 
         assertThat(users).extracting(UserData::getId).isNotNull();
         assertThat(users).extracting(UserData::getFirst_name).contains("George");

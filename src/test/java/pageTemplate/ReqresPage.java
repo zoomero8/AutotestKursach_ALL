@@ -191,6 +191,7 @@ public class ReqresPage extends ClickLog {
 
     private void compareJsonResponses(String expectedResponse, String actualResponse) {
         ObjectMapper mapper = new ObjectMapper();
+
         try {
             JsonNode expectedJson = mapper.readTree(expectedResponse);
             JsonNode actualJson = mapper.readTree(actualResponse);
