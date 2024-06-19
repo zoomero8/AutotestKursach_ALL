@@ -1,9 +1,9 @@
 package data;
 
-import io.qameta.allure.internal.shadowed.jackson.core.JsonParser;
-import io.qameta.allure.internal.shadowed.jackson.databind.DeserializationContext;
-import io.qameta.allure.internal.shadowed.jackson.databind.JsonDeserializer;
-import io.qameta.allure.internal.shadowed.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

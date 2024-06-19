@@ -1,8 +1,8 @@
 package data;
 
-import io.qameta.allure.internal.shadowed.jackson.annotation.JsonFormat;
-import io.qameta.allure.internal.shadowed.jackson.annotation.JsonIgnoreProperties;
-import io.qameta.allure.internal.shadowed.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 
 import java.time.LocalDateTime;

@@ -1,13 +1,11 @@
 package tests;
 
 import config.LoadAPI_Tests;
-import config.TestListener;
 import data.*;
 import io.qameta.allure.*;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.restassured.module.jsv.JsonSchemaValidator;
@@ -16,7 +14,7 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.*;
 
-@ExtendWith(TestListener.class)
+
 @Feature("ReqresIn Backend tests")
 public class ReqresBackTests extends LoadAPI_Tests {
 
